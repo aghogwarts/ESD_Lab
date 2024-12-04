@@ -20,9 +20,9 @@ BACK
 	LDR R4, [R0], #4
 	ADDS R2, R4		; R2 = R2 + R4
 	ADC R3, #0		; Carry
-	SUBS R1, #1
-	; SUB R1, #1	; alternative approach
-	; TEQ R1, #0	; test eqv using XOR
+	SUBS R1, #1		; alternative approach skip below two steps
+	; SUB R1, #1
+	; TEQ R1, #0		; test eqv using XOR
 	BNE BACK
 	STR R2, [R5], #4
 	STR R3, [R5]
