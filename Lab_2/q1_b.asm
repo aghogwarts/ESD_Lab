@@ -1,4 +1,5 @@
-	;for shifting an array by S of Size size 
+	;for shifting an array by S of Size size
+	
 	AREA RESET, DATA, READONLY
 	EXPORT __Vectors
 	
