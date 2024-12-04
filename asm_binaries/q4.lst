@@ -1,0 +1,187 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; LCM of two numbers
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 10001000        DCD              0x10001000
+    8 00000004 00000000        DCD              Reset_Handler
+    9 00000008                 ALIGN
+   10 00000008                 AREA             mycode, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000                 EXPORT           Reset_Handler
+   13 00000000         
+   14 00000000         Reset_Handler
+   15 00000000 4E0C            LDR              R6, =DST
+   16 00000002 480D            LDR              R0, =N
+   17 00000004 F850 1B04       LDR              R1, [R0], #4
+   18 00000008 6802            LDR              R2, [R0]
+   19 0000000A F04F 0301       MOV              R3, #1
+   20 0000000E         
+   21 0000000E         LCM_LOOP
+   22 0000000E FB03 F401       MUL              R4, R3, R1  ; R4 = i * a
+   23 00000012 4625            MOV              R5, R4
+   24 00000014         
+   25 00000014         REM_LOOP
+   26 00000014 4295            CMP              R5, R2
+   27 00000016 D302            BLO              CHECK_REMAINDER ; If R5 < b, go
+                                                             to check remainder
+                                                            
+   28 00000018 EBA5 0502       SUB              R5, R5, R2
+   29 0000001C E7FA            B                REM_LOOP
+   30 0000001E         
+   31 0000001E         CHECK_REMAINDER
+   32 0000001E 2D00            CMP              R5, #0
+   33 00000020 D002            BEQ              LCM_FOUND   ; If remainder is 0
+                                                            , we found the LCM
+   34 00000022 F103 0301       ADD              R3, R3, #1
+   35 00000026 E7F2            B                LCM_LOOP
+   36 00000028         
+   37 00000028         LCM_FOUND
+   38 00000028 6034            STR              R4, [R6]
+   39 0000002A         
+   40 0000002A         STOP
+   41 0000002A E7FE            B                STOP
+   42 0000002C         
+   43 0000002C 00000007 
+              00000009 N       DCD              0x00000007, 0x00000009
+   44 00000034 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   45 00000000         
+   46 00000000 00000000 
+                       DST     DCD              0
+   47 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q4.d -
+o.\q4.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q4.lst ..\Lab_3\q4.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file ..\Lab_3\q4.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file ..\Lab_3\q4.asm
+   Uses
+      At line 4 in file ..\Lab_3\q4.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CHECK_REMAINDER 0000001E
+
+Symbol: CHECK_REMAINDER
+   Definitions
+      At line 31 in file ..\Lab_3\q4.asm
+   Uses
+      At line 27 in file ..\Lab_3\q4.asm
+Comment: CHECK_REMAINDER used once
+LCM_FOUND 00000028
+
+Symbol: LCM_FOUND
+   Definitions
+      At line 37 in file ..\Lab_3\q4.asm
+   Uses
+      At line 33 in file ..\Lab_3\q4.asm
+Comment: LCM_FOUND used once
+LCM_LOOP 0000000E
+
+Symbol: LCM_LOOP
+   Definitions
+      At line 21 in file ..\Lab_3\q4.asm
+   Uses
+      At line 35 in file ..\Lab_3\q4.asm
+Comment: LCM_LOOP used once
+N 0000002C
+
+Symbol: N
+   Definitions
+      At line 43 in file ..\Lab_3\q4.asm
+   Uses
+      At line 16 in file ..\Lab_3\q4.asm
+Comment: N used once
+REM_LOOP 00000014
+
+Symbol: REM_LOOP
+   Definitions
+      At line 25 in file ..\Lab_3\q4.asm
+   Uses
+      At line 29 in file ..\Lab_3\q4.asm
+Comment: REM_LOOP used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 14 in file ..\Lab_3\q4.asm
+   Uses
+      At line 8 in file ..\Lab_3\q4.asm
+      At line 12 in file ..\Lab_3\q4.asm
+
+STOP 0000002A
+
+Symbol: STOP
+   Definitions
+      At line 40 in file ..\Lab_3\q4.asm
+   Uses
+      At line 41 in file ..\Lab_3\q4.asm
+Comment: STOP used once
+mycode 00000000
+
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+Symbol: mycode
+   Definitions
+      At line 10 in file ..\Lab_3\q4.asm
+   Uses
+      None
+Comment: mycode unused
+8 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 46 in file ..\Lab_3\q4.asm
+   Uses
+      At line 15 in file ..\Lab_3\q4.asm
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 44 in file ..\Lab_3\q4.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+345 symbols in table

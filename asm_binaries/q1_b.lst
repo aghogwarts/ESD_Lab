@@ -1,0 +1,242 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;for shifting an array by S of Size size 
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         
+    5 00000000         __Vectors
+    6 00000000 10001000        DCD              0x10001000
+    7 00000004 00000000        DCD              Reset_Handler
+    8 00000008                 ALIGN
+    9 00000008                 AREA             mycode, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000 F04F 030A       MOV              R3, #10
+   15 00000004 4815            LDR              R0, =N
+   16 00000006 4916            LDR              R1, =DST
+   17 00000008         
+   18 00000008 F850 2B04 
+                       UP1     LDR              R2, [R0], #4
+   19 0000000C F841 2B04       STR              R2, [R1], #4
+   20 00000010 F1A3 0301       SUB              R3, #1
+   21 00000014 2B00            CMP              R3, #0
+   22 00000016 D1F7            BNE              UP1
+   23 00000018 F04F 030A       MOV              R3, #10
+   24 0000001C 4A11            LDR              R2, =(DST + ((size - 1) + S) * 
+4) 
+                                                            ;LAST LOCATION WHER
+                                                            E LAST VALUE WILL B
+                                                            E SHIFTED SO IF SIZ
+                                                            E IS 5 AND SHIFT IS
+                                                             3, THEN THIS WILL 
+                                                            POINT TO LOCATION 8
+                                                             SO THAT 5 CAN BE S
+                                                            TORED AT 8
+   25 0000001E 4812            LDR              R0, =(DST + (size - 1) * 4) ;TO
+                                                             ACESS VALUE WRITTE
+                                                            N IN 5 FOR THIS CAS
+                                                            E
+   26 00000020         
+   27 00000020 F850 1904 
+                       BACK    LDR              R1, [R0], #-4
+   28 00000024 F842 1904       STR              R1, [R2], #-4
+   29 00000028         ; LOOP CODE
+   30 00000028 F1A3 0301       SUB              R3, #1
+   31 0000002C         ; WHEN R3 = 0, THEN 0 FLAG(XPSR) = 0
+   32 0000002C 2B00            CMP              R3, #0
+   33 0000002E         ; B MEANS BRANCH
+   34 0000002E         ; BNE MEANS IT CHECKS WHETHER 0 FLAG IN XPSR IS 1 OR NOT
+                       
+   35 0000002E         ; SEE uVISION HELP CLICK ON ARM INSTRUCTION CLICK B YOU 
+                       WILL SEE NE ALSO
+   36 0000002E D1F7            BNE              BACK
+   37 00000030         
+   38 00000030 E7FE    STOP    B                STOP
+   39 00000032 00 00 1C2E34D7 
+              A13B4EF8 
+              D32E54A6 
+              543A5EBC 
+              ABED2A4E 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              24141245 
+              E196DA4C 
+              9324EAC2 
+              654ECD2A 
+              ABCDDEAF N       DCD              0x1C2E34D7, 0xA13B4EF8, 0xD32E5
+4A6, 0x543A5EBC, 0xABED2A4E, 0x24141245, 0xE196DA4C, 0x9324EAC2, 0x654ECD2A, 0x
+ABCDDEAF
+   40 0000005C         
+   41 0000005C 0000000A 
+                       size    EQU              10
+   42 0000005C 00000003 
+                       S       EQU              3           ; NO_OF SHIFTS
+   43 0000005C 00000000 
+              00000000 
+              00000030 
+              00000024         AREA             mydata, DATA, READWRITE
+   44 00000000         ; ALWAYS RESERVE RQUIRED NUMBER OF MEMORY SPACE AND THEN
+                        USE IT
+   45 00000000         ; N DCD 0x12345678, 0xA1340000, 0x325465A3, 0x54351ABE, 
+                       0xABED1220, 0, 0, 0  ;RESERVING THE SPACE FOR 3 0'S(FOR 
+                       3 VALUE Shifting) this wont get initialized you have to 
+                       put all 0's; double click on the memory 1 0x1000000 and 
+                       then initialize for each address space
+   46 00000000         
+   47 00000000 00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 DST     DCD              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+, 0, 0
+   48 00000034                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q1_b.d
+ -o.\q1_b.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\In
+c\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\q1_b.lst ..\Lab_2\q1_b.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file ..\Lab_2\q1_b.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 5 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 3 in file ..\Lab_2\q1_b.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+BACK 00000020
+
+Symbol: BACK
+   Definitions
+      At line 27 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 36 in file ..\Lab_2\q1_b.asm
+Comment: BACK used once
+N 00000034
+
+Symbol: N
+   Definitions
+      At line 39 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 15 in file ..\Lab_2\q1_b.asm
+Comment: N used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 7 in file ..\Lab_2\q1_b.asm
+      At line 11 in file ..\Lab_2\q1_b.asm
+
+STOP 00000030
+
+Symbol: STOP
+   Definitions
+      At line 38 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 38 in file ..\Lab_2\q1_b.asm
+Comment: STOP used once
+UP1 00000008
+
+Symbol: UP1
+   Definitions
+      At line 18 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 22 in file ..\Lab_2\q1_b.asm
+Comment: UP1 used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 9 in file ..\Lab_2\q1_b.asm
+   Uses
+      None
+Comment: mycode unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 47 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 16 in file ..\Lab_2\q1_b.asm
+      At line 24 in file ..\Lab_2\q1_b.asm
+      At line 25 in file ..\Lab_2\q1_b.asm
+
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 43 in file ..\Lab_2\q1_b.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+S 00000003
+
+Symbol: S
+   Definitions
+      At line 42 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 24 in file ..\Lab_2\q1_b.asm
+Comment: S used once
+size 0000000A
+
+Symbol: size
+   Definitions
+      At line 41 in file ..\Lab_2\q1_b.asm
+   Uses
+      At line 24 in file ..\Lab_2\q1_b.asm
+      At line 25 in file ..\Lab_2\q1_b.asm
+
+2 symbols
+345 symbols in table

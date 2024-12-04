@@ -1,0 +1,150 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; 2-digit hexadecimal number to ASCII
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 10001000        DCD              0x10001000
+    8 00000004 00000000        DCD              Reset_Handler
+    9 00000008                 ALIGN
+   10 00000008                 AREA             mycode, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000                 EXPORT           Reset_Handler
+   13 00000000         
+   14 00000000         Reset_Handler
+   15 00000000 480A            LDR              R0, =N
+   16 00000002 490B            LDR              R1, =ASCII
+   17 00000004 6802            LDR              R2, [R0]
+   18 00000006         
+   19 00000006 F002 030F       AND              R3, R2, #0x0F ; extract LSB usi
+                                                            ng bitwise &
+   20 0000000A 2B09            CMP              R3, #0x9    ; compare with 9 to
+                                                             see if numeric or 
+                                                            alphabetic
+   21 0000000C BF8C 3337       ADDHI            R3, #0x37   ; if R3>9 i.e. alph
+                                                            abet add 0x37 or 55
+                                                             to convert A-Z
+   22 00000010 3330            ADDLS            R3, #0x30   ; if R3<9 i.e. numb
+                                                            er add 0x30 or 48 t
+                                                            o convert 0-9
+   23 00000012 F841 3B01       STR              R3, [R1], #1 ; store at R1 then
+                                                             increment R1
+   24 00000016 EA4F 1312       LSR              R3, R2, #4  ; logical shift rig
+                                                            ht by 4 to eliminat
+                                                            e the LSB and opera
+                                                            te on MSB
+   25 0000001A 2B09            CMP              R3, #0x9    ; repeat same logic
+                                                             as above ^_^
+   26 0000001C BF8C 3337       ADDHI            R3, #0x37
+   27 00000020 3330            ADDLS            R3, #0x30
+   28 00000022 600B            STR              R3, [R1]    ; final value at R1
+                                                             as ASCII values of
+                                                             both digits
+   29 00000024         
+   30 00000024         STOP
+   31 00000024 E7FE            B                STOP
+   32 00000026         
+   33 00000026 00 00 0000005D 
+                       N       DCD              0x5D
+   34 0000002C 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   35 00000000         
+   36 00000000 00000000 
+                       ASCII   DCD              0
+   37 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q1.d -
+o.\q1.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q1.lst ..\Lab_4\q1.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file ..\Lab_4\q1.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file ..\Lab_4\q1.asm
+   Uses
+      At line 4 in file ..\Lab_4\q1.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+N 00000028
+
+Symbol: N
+   Definitions
+      At line 33 in file ..\Lab_4\q1.asm
+   Uses
+      At line 15 in file ..\Lab_4\q1.asm
+Comment: N used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 14 in file ..\Lab_4\q1.asm
+   Uses
+      At line 8 in file ..\Lab_4\q1.asm
+      At line 12 in file ..\Lab_4\q1.asm
+
+STOP 00000024
+
+Symbol: STOP
+   Definitions
+      At line 30 in file ..\Lab_4\q1.asm
+   Uses
+      At line 31 in file ..\Lab_4\q1.asm
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 10 in file ..\Lab_4\q1.asm
+   Uses
+      None
+Comment: mycode unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ASCII 00000000
+
+Symbol: ASCII
+   Definitions
+      At line 36 in file ..\Lab_4\q1.asm
+   Uses
+      At line 16 in file ..\Lab_4\q1.asm
+Comment: ASCII used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 34 in file ..\Lab_4\q1.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+341 symbols in table

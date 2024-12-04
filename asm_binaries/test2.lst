@@ -1,0 +1,124 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         
+    5 00000000         __Vectors
+    6 00000000 10001000        DCD              0x10001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    7 00000004 00000000        DCD              Reset_Handler ; reset vector
+    8 00000008                 ALIGN
+    9 00000008                 AREA             mycode, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000 4803            LDR              R0, =SRC    ; Load address of S
+                                                            RC into R0
+   15 00000002 4904            LDR              R1, =DST    ; Load the address 
+                                                            of DST onto R1
+   16 00000004 6803            LDR              R3, [R0]    ; Load data pointed
+                                                             by R0 into R3
+   17 00000006 600B            STR              R3, [R1]    ; Store data from R
+                                                            3 into the address 
+                                                            pointed by R1
+   18 00000008         
+   19 00000008 12345678 
+              00000080 SRC     DCD              0x12345678, 0x80 ; SRC location
+                                                             in code segment
+   20 00000010 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   21 00000000         
+   22 00000000 00000000 
+              00000000 DST     DCD              0,0         ;DST location in Da
+                                                            ta segment
+   23 00000008                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\test2.
+d -o.\test2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\
+Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\test2.lst ..\Lab_2\test2.a
+sm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file ..\Lab_2\test2.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 5 in file ..\Lab_2\test2.asm
+   Uses
+      At line 3 in file ..\Lab_2\test2.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file ..\Lab_2\test2.asm
+   Uses
+      At line 7 in file ..\Lab_2\test2.asm
+      At line 11 in file ..\Lab_2\test2.asm
+
+SRC 00000008
+
+Symbol: SRC
+   Definitions
+      At line 19 in file ..\Lab_2\test2.asm
+   Uses
+      At line 14 in file ..\Lab_2\test2.asm
+Comment: SRC used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 9 in file ..\Lab_2\test2.asm
+   Uses
+      None
+Comment: mycode unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 22 in file ..\Lab_2\test2.asm
+   Uses
+      At line 15 in file ..\Lab_2\test2.asm
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 20 in file ..\Lab_2\test2.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+340 symbols in table

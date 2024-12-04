@@ -1,0 +1,204 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; 2-digit Hexadecimal to BCD
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 10001000        DCD              0x10001000
+    8 00000004 00000000        DCD              Reset_Handler
+    9 00000008                 ALIGN
+   10 00000008                 AREA             mycode, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000                 EXPORT           Reset_Handler
+   13 00000000         
+   14 00000000         Reset_Handler
+   15 00000000 480C            LDR              R0, =N
+   16 00000002 6801            LDR              R1, [R0]
+   17 00000004         
+   18 00000004         ; R3: Counts the number of times 10 is subtracted (tens 
+                       place).
+   19 00000004         ; R4: Stores the final BCD value.
+   20 00000004         ; R2: Keeps track of the shift amount during the BCD con
+                       struction.
+   21 00000004         
+   22 00000004         UP2
+   23 00000004 2900            CMP              R1, #0
+   24 00000006 D00F            BEQ              EXIT2       ; z = 1, i.e R1 = 0
+                                                            
+   25 00000008 F04F 0300       MOV              R3, #0
+   26 0000000C         
+   27 0000000C         UP1
+   28 0000000C 290A            CMP              R1, #0x0A
+   29 0000000E D304            BLO              EXIT1       ; if R1 < 10 then g
+                                                            o to exit 1 else
+   30 00000010 F1A1 010A       SUB              R1, #0x0A   ; subtract
+   31 00000014 F103 0301       ADD              R3, #1      ; increment number 
+                                                            of tens
+   32 00000018 E7F8            B                UP1
+   33 0000001A         
+   34 0000001A         EXIT1
+   35 0000001A FA01 F102       LSL              R1, R2      ; shifting R1 by R2
+                                                             bits to align digi
+                                                            t in BCD format
+   36 0000001E F102 0204       ADD              R2, #4      ; increment for nex
+                                                            t BCD digit positio
+                                                            n
+   37 00000022 440C            ADD              R4, R1
+   38 00000024 4619            MOV              R1, R3
+   39 00000026 E7ED            B                UP2
+   40 00000028         
+   41 00000028         EXIT2
+   42 00000028 4803            LDR              R0, =BCD
+   43 0000002A 6004            STR              R4, [R0]
+   44 0000002C         
+   45 0000002C         STOP
+   46 0000002C E7FE            B                STOP
+   47 0000002E         
+   48 0000002E 00 00 00000080 
+                       N       DCD              0x80
+   49 00000034 00000000 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              00000000         AREA             mydata, DATA, READWRITE
+   50 00000000         
+   51 00000000 00000000 
+                       BCD     DCD              0
+   52 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q3.d -
+o.\q3.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q3.lst ..\Lab_4\q3.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file ..\Lab_4\q3.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file ..\Lab_4\q3.asm
+   Uses
+      At line 4 in file ..\Lab_4\q3.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+EXIT1 0000001A
+
+Symbol: EXIT1
+   Definitions
+      At line 34 in file ..\Lab_4\q3.asm
+   Uses
+      At line 29 in file ..\Lab_4\q3.asm
+Comment: EXIT1 used once
+EXIT2 00000028
+
+Symbol: EXIT2
+   Definitions
+      At line 41 in file ..\Lab_4\q3.asm
+   Uses
+      At line 24 in file ..\Lab_4\q3.asm
+Comment: EXIT2 used once
+N 00000030
+
+Symbol: N
+   Definitions
+      At line 48 in file ..\Lab_4\q3.asm
+   Uses
+      At line 15 in file ..\Lab_4\q3.asm
+Comment: N used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 14 in file ..\Lab_4\q3.asm
+   Uses
+      At line 8 in file ..\Lab_4\q3.asm
+      At line 12 in file ..\Lab_4\q3.asm
+
+STOP 0000002C
+
+Symbol: STOP
+   Definitions
+      At line 45 in file ..\Lab_4\q3.asm
+   Uses
+      At line 46 in file ..\Lab_4\q3.asm
+Comment: STOP used once
+UP1 0000000C
+
+Symbol: UP1
+   Definitions
+      At line 27 in file ..\Lab_4\q3.asm
+   Uses
+      At line 32 in file ..\Lab_4\q3.asm
+Comment: UP1 used once
+UP2 00000004
+
+Symbol: UP2
+   Definitions
+      At line 22 in file ..\Lab_4\q3.asm
+   Uses
+      At line 39 in file ..\Lab_4\q3.asm
+Comment: UP2 used once
+mycode 00000000
+
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+Symbol: mycode
+   Definitions
+      At line 10 in file ..\Lab_4\q3.asm
+   Uses
+      None
+Comment: mycode unused
+8 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+BCD 00000000
+
+Symbol: BCD
+   Definitions
+      At line 51 in file ..\Lab_4\q3.asm
+   Uses
+      At line 42 in file ..\Lab_4\q3.asm
+Comment: BCD used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 49 in file ..\Lab_4\q3.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+345 symbols in table
