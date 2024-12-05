@@ -19,6 +19,20 @@ Codes done in respect to the Lab Manual
 
 - code conv as per manual
 
+### Lab 5
+
+- as per manual
+
+### Lab 6
+
+- all LEDs instead of one
+
+### Lab 7
+
+- additional johnson counter
+
+### Lab 8
+
 Additional lab day on 5th Dec
 
 <hr>
