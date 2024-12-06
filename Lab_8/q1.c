@@ -1,8 +1,5 @@
 #include <LPC17xx.h>
-
 // one digit hex counter
-// q2 4 digit static number
-// q3 up/down counter for 4 digit
 
 int main(void)
 {
