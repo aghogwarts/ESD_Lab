@@ -33,7 +33,12 @@ Codes done in respect to the Lab Manual
 
 ### Lab 8
 
-Additional lab day on 5th Dec
+- q1 only up/down
+
+### Lab 9
+
+- message display
+- die tossing
 
 <hr>
 
