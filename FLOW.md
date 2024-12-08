@@ -39,6 +39,16 @@ Codes done in respect to the Lab Manual
 
 - message display
 - die tossing
+- key_7seg
+
+### Lab 10
+
+- single channel
+- dual channel difference
+
+### Lab 11
+
+- q1
 
 <hr>
 
